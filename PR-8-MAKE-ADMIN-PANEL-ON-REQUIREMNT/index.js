@@ -1,0 +1,24 @@
+import express from "express";
+import dotenv from "./configs/dotenv.js";
+import router from "./routers/index.js";
+import database from "./configs/database.js";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+
+const port = dotenv.PORT || 3001;
+
+const app = express();
+
+app.set('view engine','ejs');
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(cookieParser());
+
+app.use('/',router);
+
+app.listen(port,(err)=>{
+    if(!err){
+        console.log("Server start.");
+        console.log("http://localhost:"+port);                
+    }
+})
