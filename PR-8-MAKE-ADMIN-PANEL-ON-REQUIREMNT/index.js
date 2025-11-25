@@ -4,6 +4,8 @@ import router from "./routers/index.js";
 import database from "./configs/database.js";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import flash from "connect-flash";
+import session from "express-session";
 
 const port = dotenv.PORT || 3001;
 
@@ -13,6 +15,12 @@ app.set('view engine','ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cookieParser());
+app.use(session({
+    secret : 'secret-key',
+    resave : false,
+    saveUninitialized : true
+}));
+app.use(flash());
 
 app.use('/',router);
 

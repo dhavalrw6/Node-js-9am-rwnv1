@@ -2,7 +2,7 @@ import UserModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
 
 const adminController = {
-    indexPage(req,res){
+    indexPage(req,res){   
         return res.render('./index.ejs');
     },
     registerUserPage(req,res){
@@ -15,13 +15,13 @@ const adminController = {
         try {
             const {password,confirmPassword} = req.body;
             if(password != confirmPassword){
-                console.log("Password And Confirm Password Not Match.");                
+                req.flash('error','Password And Confirm Password Not Match.');            
                 return res.redirect('/register');
             }
             let hashPassword = await bcrypt.hash(password,10); 
             req.body.password = hashPassword;
             await UserModel.create(req.body);
-            console.log("User Created Successfully.");
+            req.flash('success','User Created Successfully.');
             return res.redirect('/login');
         } catch (error) {
             console.log(error.message);
@@ -34,18 +34,18 @@ const adminController = {
             let user = await UserModel.findOne({username});
 
             if(!user) {
-                console.log("User Not Found.");                
+                req.flash('error','User Not Found.');               
                 return res.redirect('/login')
             };
 
             let isValid = await bcrypt.compare(password,user.password);
 
             if(!isValid) {
-                console.log("Wrong Password.");                
+                req.flash('error',"Wrong Password.");                
                 return res.redirect('/login')
             }
             
-            console.log("Login Success");            
+            req.flash("success","Login Success");            
             return res.cookie('id',user.id).redirect('/');
         } catch (error) {
             console.log(error.message);
@@ -75,14 +75,14 @@ const adminController = {
                 if(newPassword == confirmPassword){
                     user.password = await bcrypt.hash(newPassword,10);
                     await user.save();
-                    console.log("Password Changed.");
+                    req.flash("success","Password Changed.");
                     return res.redirect('/logout');
                 }else{
-                    console.log("new password and confirm password not match.");
+                    req.flash("error","new password and confirm password not match.");
                     return res.redirect(req.get('Referrer') || '/');
                 }
             }else{
-                console.log("Current Password not match.");                
+                req.flash("error","Current Password not match.");                
                 return res.redirect(req.get('Referrer') || '/');
             }
 
