@@ -21,6 +21,7 @@ app.use(session({
     saveUninitialized : true
 }));
 app.use(flash());
+app.use('/uploads',express.static('uploads'));
 
 app.use('/',router);
 
