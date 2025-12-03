@@ -1,4 +1,5 @@
     <%- include('../partials/header.ejs') %>
+
       <!-- ============================================================== -->
       <!-- End Left Sidebar - style you can find in sidebar.scss  -->
       <!-- ============================================================== -->
@@ -12,7 +13,7 @@
         <div class="page-breadcrumb">
           <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-              <h4 class="page-title">Tables</h4>
+              <h4 class="page-title">Form Basic</h4>
               <div class="ms-auto text-end">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
@@ -37,49 +38,58 @@
           <!-- Start Page Content -->
           <!-- ============================================================== -->
           <div class="row">
-            <div class="col-12">
+            <div class="col-md-6">
               <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title mb-0">Category Table</h5>
-                </div>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Sr. No</th>
-                      <th scope="col">Image</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% categorys.forEach((value,index)=> { %>
-                        <tr>
-                            <td><%= index + 1  %></td>
-                            <td>
-                                <img src="<%= value.image %>" style="width: 70px;" alt="<%= value.name %>">
-                            </td>
-                            <td><%= value.name  %></td>
-                            <td>
-                                <a href="/category/delete/<%= value.id %>" class="btn btn-danger">Detele</a>
-                                <a href="/category/edit/<%= value.id %>" class="btn btn-warning">Edit</a>
-                            </td>
-                        </tr>
-                    <% }) %>
-                  </tbody>
-                </table>
+                <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+                  <div class="card-body">
+                    <h4 class="card-title">subCategory Edit</h4>
+                    <div class="form-group row">
+                      <label
+                        for="name"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >subCategory</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          name="name"
+                          value="<%= data.name %>"
+                          placeholder="First Name Here"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-end">
+                        <img src="/<%= data.image %>" style="width: 100px;" alt="<%= data.name %>">
+                    </div>
+                    <div class="form-group row">
+                      <label
+                        for="image"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Image</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="file"
+                          class="form-control"
+                          id="image"
+                          name="image"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="border-top">
+                    <div class="card-body">
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-          <!-- ============================================================== -->
-          <!-- End PAge Content -->
-          <!-- ============================================================== -->
-          <!-- ============================================================== -->
-          <!-- Right sidebar -->
-          <!-- ============================================================== -->
-          <!-- .right-sidebar -->
-          <!-- ============================================================== -->
-          <!-- End Right sidebar -->
-          <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
         <!-- End Container fluid  -->
