@@ -48,20 +48,25 @@
                       <th scope="col">Sr. No</th>
                       <th scope="col">Image</th>
                       <th scope="col">Name</th>
+                      <th scope="col">Category</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <% subcategorys.forEach((value,index)=> { %>
+                    <% 
+                        subcategorys.forEach((value,index)=> { 
+                        const {name,id,image,category} = value;
+                    %>
                         <tr>
                             <td><%= index + 1  %></td>
                             <td>
-                                <img src="<%= value.image %>" style="width: 70px;" alt="<%= value.name %>">
+                                <img src="<%= image %>" style="width: 70px;" alt="<%= name %>">
                             </td>
-                            <td><%= value.name  %></td>
+                            <td><%= name  %></td>
+                            <td><%= category.name  %></td>
                             <td>
-                                <a href="/subcategory/delete/<%= value.id %>" class="btn btn-danger">Detele</a>
-                                <a href="/subcategory/edit/<%= value.id %>" class="btn btn-warning">Edit</a>
+                                <a href="/subcategory/delete/<%= id %>" class="btn btn-danger">Detele</a>
+                                <a href="/subcategory/edit/<%= id %>" class="btn btn-warning">Edit</a>
                             </td>
                         </tr>
                     <% }) %>

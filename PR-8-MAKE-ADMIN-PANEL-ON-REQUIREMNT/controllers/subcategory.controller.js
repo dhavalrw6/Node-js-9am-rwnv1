@@ -1,8 +1,10 @@
+import Category from "../models/category.model.js";
 import subCategory from "../models/subcategory.model.js";
 import fs from "fs";
 const subcategoryController = {
-  addsubCategoryPage(req, res) {
-    return res.render("./pages/add-subcategory.ejs");
+  async addsubCategoryPage(req, res) {
+    let categorys = await Category.find({}); 
+    return res.render("./pages/add-subcategory.ejs",{categorys});
   },
   async addsubCategory(req, res) {
     try {
@@ -17,8 +19,8 @@ const subcategoryController = {
   },
   async viewsubCategoryPage(req, res) {
     try {
-
-        let subcategorys = await subCategory.find({});
+        let subcategorys = await subCategory.find({}).populate('category');
+        // return res.json(subcategorys)
       return res.render("./pages/view-subcategory.ejs",{
         subcategorys
       });
